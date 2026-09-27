@@ -1,0 +1,5 @@
+{
+  "name": "Lint",
+  "description": "Run the repository's pre-commit checks through the shared lint workflow.",
+  "filePatterns": ["^\\.pre-commit-config\\.yaml$"]
+}

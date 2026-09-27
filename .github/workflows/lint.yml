@@ -1,0 +1,44 @@
+name: Lint
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_call:
+    inputs:
+      runs-on:
+        description: Runner label (default ubuntu-slim).
+        type: string
+        required: false
+      timeout-minutes:
+        description: Job timeout in minutes (default 3). ubuntu-slim stops jobs at 15.
+        type: number
+        required: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: lint-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  lint:
+    runs-on: ${{ inputs.runs-on || 'ubuntu-slim' }}
+    timeout-minutes: ${{ inputs.timeout-minutes || 3 }}
+    steps:
+      - uses: actions/checkout@v7.0.1
+        with:
+          persist-credentials: false
+
+      - uses: astral-sh/setup-uv@v10.2.0
+
+      - uses: actions/cache@v6.1.0
+        with:
+          path: ~/.cache/pre-commit
+          key: pre-commit-${{ runner.os }}-${{ hashFiles('.pre-commit-config.yaml') }}
+          restore-keys: pre-commit-${{ runner.os }}-
+
+      - run: make lint
+
+      - run: make prune

@@ -1,0 +1,13 @@
+[project]
+name = "template"
+version = "0.0.0"
+requires-python = "~=3.14.0"
+dependencies = []
+
+[dependency-groups]
+dev = [
+    "pre-commit==4.6.2",
+]
+
+[tool.uv]
+required-version = ">=0.12"
