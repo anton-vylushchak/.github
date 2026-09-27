@@ -34,13 +34,13 @@ jobs:
     uses: anton-vylushchak/.github/.github/workflows/lint.yml@vX.Y.Z
     with:
       runs-on: ubuntu-slim
-      timeout-minutes: 3
+      timeout-minutes: 5
 ```
 
 | Input             | Default       | Description                                                                 |
 | ----------------- | ------------- | --------------------------------------------------------------------------- |
 | `runs-on`         | `ubuntu-slim` | Runner label. `ubuntu-slim` has 1 CPU, no Docker and a 15-minute job limit. |
-| `timeout-minutes` | `3`           | Job timeout in minutes.                                                     |
+| `timeout-minutes` | `5`           | Job timeout in minutes.                                                     |
 
 The workflow checks out the calling repository and runs its `make lint` and `make prune`, so that repository needs the
 Makefile, `uv.lock` and `.pre-commit-config.yaml` from this template. Leave `concurrency` out of the calling workflow:
