@@ -12,7 +12,7 @@ Create a new repository from this one with **Use this template**, then:
    1. Replace each file in `.github/workflows/` with the file of the same name in
       [workflow-templates/](workflow-templates/), so the repository calls the shared workflow instead of keeping a copy.
    2. Delete `workflow-templates/`.
-   3. Remove `/workflow-templates` from [dependabot.yml](.github/dependabot.yml).
+   3. Remove `/workflow-templates` from [dependabot.yaml](.github/dependabot.yaml).
 4. Replace this README with one for the new repository.
 5. Delete anything the new repository doesn't need.
 
@@ -31,15 +31,15 @@ the caller cancels the run.
 
 ### Lint
 
-[lint.yml](.github/workflows/lint.yml) runs the same pre-commit checks as `make lint` on pull requests and on pushes to
-`main`. It needs:
+[lint.yaml](.github/workflows/lint.yaml) runs the same pre-commit checks as `make lint` on pull requests and on pushes
+to `main`. It needs:
 
 - `uv.lock` with pre-commit
 - `.pre-commit-config.yaml`
 
 ### PR Title
 
-[pr-title.yml](.github/workflows/pr-title.yml) checks that the pull request title follows Conventional Commits, since
+[pr-title.yaml](.github/workflows/pr-title.yaml) checks that the pull request title follows Conventional Commits, since
 squash merges turn the title into the commit on `main`. Its caller lists the `opened`, `edited`, `synchronize` and
 `reopened` event types, so the check runs again when the title or the branch changes. It needs:
 

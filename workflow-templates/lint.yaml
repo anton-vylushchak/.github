@@ -10,4 +10,4 @@ permissions:
 
 jobs:
   lint:
-    uses: anton-vylushchak/.github/.github/workflows/lint.yml@v1.0.0
+    uses: anton-vylushchak/.github/.github/workflows/lint.yaml@v1.0.0
