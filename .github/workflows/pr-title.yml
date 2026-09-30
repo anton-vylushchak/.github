@@ -1,0 +1,42 @@
+name: PR Title
+
+on:
+  pull_request:
+    types: [opened, edited, synchronize, reopened]
+  workflow_call:
+    inputs:
+      runs-on:
+        description: Runner label (default ubuntu-slim).
+        type: string
+        required: false
+      timeout-minutes:
+        description: Job timeout in minutes (default 3). ubuntu-slim stops jobs at 15.
+        type: number
+        required: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pr-title-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  pr-title:
+    runs-on: ${{ inputs.runs-on || 'ubuntu-slim' }}
+    timeout-minutes: ${{ inputs.timeout-minutes || 3 }}
+    steps:
+      - uses: actions/checkout@v7.0.1
+        with:
+          persist-credentials: false
+
+      - uses: astral-sh/setup-uv@v10.2.0
+
+      - name: Check PR title
+        env:
+          TITLE: ${{ github.event.pull_request.title }}
+        run: |
+          printf '%s' "$TITLE" > "$RUNNER_TEMP/pr-title"
+          uv run --locked pre-commit run conventional-pre-commit \
+            --hook-stage commit-msg \
+            --commit-msg-filename "$RUNNER_TEMP/pr-title"

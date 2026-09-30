@@ -1,0 +1,5 @@
+{
+  "name": "PR Title",
+  "description": "Check that pull request titles follow Conventional Commits.",
+  "filePatterns": ["^\\.pre-commit-config\\.yaml$"]
+}
