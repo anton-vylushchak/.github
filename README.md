@@ -24,9 +24,9 @@ for each one.
 
 ### Lint
 
-[lint.yml](.github/workflows/lint.yml) runs `make lint` on pull requests and on pushes to `main`. Start from
-[workflow-templates/lint.yml](workflow-templates/lint.yml), which Dependabot keeps on the latest release, and set inputs
-with `with:`:
+[lint.yml](.github/workflows/lint.yml) runs the same pre-commit checks as `make lint` on pull requests and on pushes to
+`main`. Start from [workflow-templates/lint.yml](workflow-templates/lint.yml), which Dependabot keeps on the latest
+release, and set inputs with `with:`:
 
 ```yaml
 jobs:
@@ -42,6 +42,6 @@ jobs:
 | `runs-on`         | `ubuntu-slim` | Runner label. `ubuntu-slim` has 1 CPU, no Docker and a 15-minute job limit. |
 | `timeout-minutes` | `5`           | Job timeout in minutes.                                                     |
 
-The workflow checks out the calling repository and runs its `make lint` and `make prune`, so that repository needs the
-Makefile, `uv.lock` and `.pre-commit-config.yaml` from this template. Leave `concurrency` out of the calling workflow:
-this one already sets it, and a matching group in the caller cancels the run.
+The workflow checks out the calling repository and runs its pre-commit checks, so that repository needs `uv.lock` with
+pre-commit, and `.pre-commit-config.yaml`. Leave `concurrency` out of the calling workflow: this one already sets it,
+and a matching group in the caller cancels the run.

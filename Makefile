@@ -11,7 +11,10 @@ hooks:
 	uv run --locked pre-commit install
 
 lint:
-	uv run --locked pre-commit run --all-files --hook-stage manual --show-diff-on-failure
+	uv run --locked pre-commit run \
+		--all-files \
+		--hook-stage manual \
+		--show-diff-on-failure
 
 prune:
 	uv run --locked pre-commit gc
