@@ -14,11 +14,15 @@ make setup
 git switch -c <branch>
 # edit, then commit: the hooks run
 git push -u origin HEAD
-gh pr create --fill
+gh pr create --fill-first
 ```
 
 Merge only once the checks pass. GitHub Free doesn't enforce required checks on private repos, so nothing else blocks a
 merge on red.
+
+The pull request title must follow Conventional Commits: squash merges turn it into the commit on `main`, and the PR
+title check fails otherwise. `--fill-first` takes the title from the branch's first commit, which the commit-message
+hook has already checked.
 
 ## Manual maintenance
 
