@@ -11,3 +11,4 @@
 - **Checks and their versions live in `.pre-commit-config.yaml`.** Tools the repo runs, including pre-commit itself,
   live in `pyproject.toml` and `uv.lock`. Don't pin tool versions in the Makefile or in workflows.
 - **Tool config lives in a root dotfile**, not in hook `args`: `.yamllint.yaml`, `.mdformat.toml`.
+- **Use `.yaml` for YAML files**, unless a tool only recognizes `.yml`.
