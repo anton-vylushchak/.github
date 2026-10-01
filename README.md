@@ -16,7 +16,7 @@ Create a new repository from this one with **Use this template**, then:
    3. Remove `/workflow-templates` from [dependabot.yaml](.github/dependabot.yaml).
 4. In [.cliff.toml](.cliff.toml), set `include_paths` to what the repository releases, or remove it to release every
    change.
-5. Replace this README with one for the new repository.
+5. Replace this README and [LICENSE](LICENSE) with ones for the new repository.
 
 > [!NOTE]
 > Changes made here don't reach repositories already created from this template: a template is copied once, with no link
