@@ -1,0 +1,15 @@
+{
+  "editor.rulers": [120],
+  "files.insertFinalNewline": true,
+  "files.trimFinalNewlines": true,
+  "files.trimTrailingWhitespace": true,
+  "json.schemas": [
+    {
+      "fileMatch": ["**/workflow-templates/*.properties.json"],
+      "url": "https://www.schemastore.org/github-workflow-template-properties.json"
+    }
+  ],
+  "yaml.schemas": {
+    "https://www.schemastore.org/github-workflow.json": "workflow-templates/*.yaml"
+  }
+}
