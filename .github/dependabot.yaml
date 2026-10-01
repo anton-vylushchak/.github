@@ -10,6 +10,7 @@ updates:
       timezone: America/Toronto
     commit-message:
       prefix: ci
+      include: scope
     groups:
       actions:
         patterns: ["*"]
@@ -24,6 +25,7 @@ updates:
       timezone: America/Toronto
     commit-message:
       prefix: ci
+      include: scope
     groups:
       hooks:
         patterns: ["*"]
