@@ -31,7 +31,7 @@ jobs:
           if [ -n "$notes" ]; then
             notes_file="$RUNNER_TEMP/notes.md"
             printf '%s' "$notes" > "$notes_file"
-            tag=$(uv run --locked git-cliff --bumped-version)
+            tag=$(uv run --locked git-cliff --unreleased --bumped-version)
             {
               echo "tag=$tag"
               echo "notes-file=$notes_file"
