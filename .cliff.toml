@@ -1,0 +1,29 @@
+# https://git-cliff.org/docs/configuration
+[changelog]
+body = """
+{%- for group, commits in commits | group_by(attribute="group") %}
+### {{ group | striptags | trim }}
+{% for commit in commits %}
+- {{ commit.message | upper_first }}
+{%- endfor %}
+{% endfor %}
+"""
+trim = true
+
+[git]
+conventional_commits = true
+filter_unconventional = true
+protect_breaking_commits = true
+tag_pattern = "^v[0-9]+\\.[0-9]+\\.[0-9]+$"
+include_paths = [".github/workflows/"]
+exclude_paths = [".github/workflows/release.yaml"]
+commit_parsers = [
+  { field = "breaking", pattern = "true", group = "<!-- 0 -->Breaking changes" },
+  { message = "^feat", group = "<!-- 1 -->Features" },
+  { message = "^fix", group = "<!-- 2 -->Fixes" },
+  { message = "^ci\\(deps\\)", group = "<!-- 3 -->Dependencies" },
+  { message = ".*", skip = true },
+]
+
+[bump]
+initial_tag = "v1.0.0"

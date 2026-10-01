@@ -9,15 +9,19 @@ Create a new repository from this one with **Use this template**, then:
 1. Set `name` in [pyproject.toml](pyproject.toml) and run `uv lock`.
 2. Run `make setup` to install the tools and the git hooks.
 3. Switch to the shared workflows:
-   1. Replace each file in `.github/workflows/` with the file of the same name in
-      [workflow-templates/](workflow-templates/), so the repository calls the shared workflow instead of keeping a copy.
+   1. Replace each workflow in `.github/workflows/` that has a caller of the same name in
+      [workflow-templates/](workflow-templates/) with that caller, so the repository calls the shared workflow instead
+      of keeping a copy.
    2. Delete `workflow-templates/`.
    3. Remove `/workflow-templates` from [dependabot.yaml](.github/dependabot.yaml).
-4. Replace this README with one for the new repository.
-5. Delete anything the new repository doesn't need.
+4. In [.cliff.toml](.cliff.toml), set `include_paths` to what the repository releases, or remove it to release every
+   change.
+5. Replace this README with one for the new repository.
 
-Changes made here do not reach repositories already created from it — a template is copied once, with no link back. The
-reusable workflows are the exception: repositories call them by version, and Dependabot proposes each new version.
+> [!NOTE]
+> Changes made here don't reach repositories already created from this template: a template is copied once, with no link
+> back. The reusable workflows are the exception: repositories call them by version, and Dependabot proposes each new
+> version.
 
 ## Workflows
 
@@ -26,8 +30,11 @@ which Dependabot keeps on the latest release. Each workflow lists its inputs and
 set them with `with:` on the job that calls it.
 
 Each workflow checks out the calling repository and runs that repository's own tools, so the repository needs the files
-listed in its section. Leave `concurrency` out of calling workflows: each workflow sets its own, and a matching group in
-the caller cancels the run.
+listed in its section.
+
+> [!CAUTION]
+> Leave `concurrency` out of calling workflows. Each workflow sets its own, and a matching group in the caller cancels
+> the run.
 
 ### Lint
 

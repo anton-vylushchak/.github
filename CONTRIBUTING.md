@@ -2,7 +2,7 @@
 
 Every change lands through a pull request.
 
-## One-time setup
+## Setup
 
 ```bash
 make setup
@@ -17,33 +17,24 @@ git push -u origin HEAD
 gh pr create --fill-first
 ```
 
-Merge only once the checks pass. GitHub Free doesn't enforce required checks on private repos, so nothing else blocks a
-merge on red.
+The pull request title must follow [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/): squash merges
+turn it into the commit on `main`, and the PR title check fails otherwise. `--fill-first` takes the title from the
+branch's first commit, which the commit-message hook has already checked.
 
-The pull request title must follow Conventional Commits: squash merges turn it into the commit on `main`, and the PR
-title check fails otherwise. `--fill-first` takes the title from the branch's first commit, which the commit-message
-hook has already checked.
+> [!WARNING]
+> On private repos, GitHub Free doesn't enforce required checks, so merge only once they pass.
 
-## Manual maintenance
+## Releases
 
-Bump every check in [.pre-commit-config.yaml](.pre-commit-config.yaml) to its latest release:
+Merging releases a new version when the pull request title calls for one: `feat` releases a minor version, `fix` a
+patch, and `!` after the type, such as `feat!:`, a major. Other types release nothing, and neither do changes outside
+`include_paths` in [.cliff.toml](.cliff.toml).
 
-```bash
-uv run pre-commit autoupdate
-```
+## Freeing disk space
 
-Bump pre-commit itself:
-
-```bash
-uv add --dev pre-commit==<version>
-```
-
-Reclaim disk after a bump. The superseded hook environment stays in the cache, and a gitleaks or actionlint bump leaves
-about 320 MB behind because those hooks compile from source:
+A hook update leaves the old hook environment in the cache, and gitleaks and actionlint leave about 320 MB each because
+they compile from source. Remove the leftovers with:
 
 ```bash
 make prune
 ```
-
-Skip one check for a single commit with `SKIP=<hook-id> git commit`, or all of them with `--no-verify`. The hooks guard
-against slips; they can't stop a deliberate bypass.
