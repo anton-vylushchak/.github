@@ -44,4 +44,8 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           TAG: ${{ steps.version.outputs.tag }}
           NOTES_FILE: ${{ steps.version.outputs.notes-file }}
-        run: gh release create "$TAG" --target "$GITHUB_SHA" --notes-file "$NOTES_FILE"
+        run: |
+          gh release create "$TAG" \
+            --target "$GITHUB_SHA" \
+            --title "$TAG" \
+            --notes-file "$NOTES_FILE"
