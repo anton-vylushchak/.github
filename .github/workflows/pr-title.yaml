@@ -33,10 +33,21 @@ jobs:
       - uses: astral-sh/setup-uv@v10.2.0
 
       - name: Check PR title
+        id: pre-commit
         env:
           TITLE: ${{ github.event.pull_request.title }}
         run: |
-          printf '%s' "$TITLE" > "$RUNNER_TEMP/pr-title"
+          set -o pipefail
+          printf '%s\n' "$TITLE" > "$RUNNER_TEMP/pr-title"
           uv run --locked pre-commit run conventional-pre-commit \
             --hook-stage commit-msg \
-            --commit-msg-filename "$RUNNER_TEMP/pr-title"
+            --commit-msg-filename "$RUNNER_TEMP/pr-title" | tee "$RUNNER_TEMP/pre-commit.log"
+
+      - name: Write failure summary
+        if: failure() && steps.pre-commit.outcome == 'failure'
+        run: |
+          {
+            echo '~~~'
+            sed '/^\[INFO\] /d' "$RUNNER_TEMP/pre-commit.log"
+            echo '~~~'
+          } >> "$GITHUB_STEP_SUMMARY"
