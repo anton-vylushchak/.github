@@ -6,6 +6,8 @@ on:
 
 permissions:
   contents: write
+  # Lets GitHub link the pull request numbers in the release notes.
+  pull-requests: read
 
 concurrency:
   group: release-${{ github.ref }}
@@ -36,6 +38,8 @@ jobs:
               echo "tag=$tag"
               echo "notes-file=$notes_file"
             } >> "$GITHUB_OUTPUT"
+          else
+            echo "No release: no commit since the last tag calls for one." >> "$GITHUB_STEP_SUMMARY"
           fi
 
       - name: Create release
@@ -45,7 +49,13 @@ jobs:
           TAG: ${{ steps.version.outputs.tag }}
           NOTES_FILE: ${{ steps.version.outputs.notes-file }}
         run: |
-          gh release create "$TAG" \
+          url=$(gh release create "$TAG" \
             --target "$GITHUB_SHA" \
             --title "$TAG" \
-            --notes-file "$NOTES_FILE"
+            --notes-file "$NOTES_FILE")
+          echo "$url"
+          {
+            echo "## Released [$TAG]($url)"
+            echo
+            cat "$NOTES_FILE"
+          } >> "$GITHUB_STEP_SUMMARY"
