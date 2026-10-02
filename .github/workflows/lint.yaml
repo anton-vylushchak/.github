@@ -53,11 +53,29 @@ jobs:
             ${{ steps.cache-key.outputs.base }}-
 
       - name: Run pre-commit
+        id: pre-commit
         run: |
+          set +e -o pipefail
           uv run --locked pre-commit run \
             --all-files \
-            --hook-stage manual \
-            --show-diff-on-failure
+            --hook-stage manual | tee "$RUNNER_TEMP/pre-commit.log"
+          status=$?
+          git diff | tee "$RUNNER_TEMP/changes.diff"
+          exit "$status"
+
+      - name: Write failure summary
+        if: failure() && steps.pre-commit.outcome == 'failure'
+        run: |
+          {
+            echo '~~~'
+            sed '/^\[INFO\] /d' "$RUNNER_TEMP/pre-commit.log"
+            echo '~~~'
+            if [ -s "$RUNNER_TEMP/changes.diff" ]; then
+              echo '~~~diff'
+              cat "$RUNNER_TEMP/changes.diff"
+              echo '~~~'
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"
 
       - name: Prune pre-commit cache
         run: uv run --locked pre-commit gc
