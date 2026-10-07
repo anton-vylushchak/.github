@@ -47,6 +47,8 @@ jobs:
           TAG: ${{ steps.version.outputs.tag }}
           NOTES_FILE: ${{ steps.version.outputs.notes-file }}
         run: |
+          # Release notes in private and internal repos don't link #N, so link pull requests explicitly.
+          sed -i -E "s|\(#([0-9]+)\)|([#\1]($GITHUB_SERVER_URL/$GITHUB_REPOSITORY/pull/\1))|g" "$NOTES_FILE"
           url=$(gh release create "$TAG" \
             --target "$GITHUB_SHA" \
             --title "$TAG" \
