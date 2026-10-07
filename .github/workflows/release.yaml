@@ -6,8 +6,6 @@ on:
 
 permissions:
   contents: write
-  # Lets GitHub link the pull request numbers in the release notes.
-  pull-requests: read
 
 concurrency:
   group: release-${{ github.ref }}
@@ -24,6 +22,8 @@ jobs:
           persist-credentials: false
 
       - uses: astral-sh/setup-uv@v10.2.0
+        with:
+          cache-python: true
 
       - name: Get next version
         id: version
@@ -49,6 +49,8 @@ jobs:
           TAG: ${{ steps.version.outputs.tag }}
           NOTES_FILE: ${{ steps.version.outputs.notes-file }}
         run: |
+          # Release notes in private and internal repos don't link #N, so link pull requests explicitly.
+          sed -i -E "s|\(#([0-9]+)\)|([#\1]($GITHUB_SERVER_URL/$GITHUB_REPOSITORY/pull/\1))|g" "$NOTES_FILE"
           url=$(gh release create "$TAG" \
             --target "$GITHUB_SHA" \
             --title "$TAG" \
