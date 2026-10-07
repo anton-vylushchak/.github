@@ -21,7 +21,8 @@ commit_parsers = [
   { field = "breaking", pattern = "true", group = "<!-- 0 -->Breaking changes" },
   { message = "^feat", group = "<!-- 1 -->Features" },
   { message = "^fix", group = "<!-- 2 -->Fixes" },
-  { message = "^ci\\(deps\\)", group = "<!-- 3 -->Dependencies" },
+  { message = "^perf", group = "<!-- 3 -->Performance" },
+  { message = "^ci\\(deps\\)", group = "<!-- 4 -->Dependencies" },
   { message = ".*", skip = true },
 ]
 
