@@ -6,8 +6,6 @@ on:
 
 permissions:
   contents: write
-  # Lets GitHub link the pull request numbers in the release notes.
-  pull-requests: read
 
 concurrency:
   group: release-${{ github.ref }}
