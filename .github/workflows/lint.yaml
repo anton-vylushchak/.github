@@ -32,6 +32,8 @@ jobs:
           persist-credentials: false
 
       - uses: astral-sh/setup-uv@v10.2.0
+        with:
+          cache-python: true
 
       # pre-commit builds Python hooks with the project's Python, so a new patch version needs a new cache.
       - name: Get cache key

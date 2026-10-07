@@ -3,8 +3,8 @@
 ## Conventions
 
 - **Follow [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/)** for commit and pull request titles.
-  The pull request title becomes the commit on `main`, and a `feat`, `fix` or `!` title releases a new version (see
-  [CONTRIBUTING.md](CONTRIBUTING.md#releases)).
+  The pull request title becomes the commit on `main`, and a `feat`, `fix`, `perf` or `!` title releases a new version
+  (see [CONTRIBUTING.md](CONTRIBUTING.md#releases)).
 - **Run `make lint` before handing over changes.** It runs the same checks as CI.
 - **Never bypass git hooks** with `--no-verify` or `SKIP`.
 - **Pin exact versions.** Actions use full version tags such as `actions/checkout@v7.0.1`, and images use explicit

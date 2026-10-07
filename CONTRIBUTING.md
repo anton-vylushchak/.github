@@ -26,9 +26,9 @@ branch's first commit, which the commit-message hook has already checked.
 
 ## Releases
 
-Merging releases a new version when the pull request title calls for one: `feat` releases a minor version, `fix` a
-patch, and `!` after the type, such as `feat!:`, a major. Other types release nothing, and neither do changes outside
-`include_paths` in [.cliff.toml](.cliff.toml).
+Merging releases a new version when the pull request title calls for one: `feat` releases a minor version, `fix` and
+`perf` a patch, and `!` after the type, such as `feat!:`, a major. Other types release nothing, and neither do changes
+outside `include_paths` in [.cliff.toml](.cliff.toml).
 
 ## Freeing disk space
 
