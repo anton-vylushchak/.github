@@ -45,11 +45,12 @@ jobs:
           echo "base=$base" >> "$GITHUB_OUTPUT"
           echo "prefix=$base-py$python_version" >> "$GITHUB_OUTPUT"
 
+      # The key includes uv.lock, which pins the tools that build the hooks, since an exact match isn't saved again.
       # The second restore key reuses the hooks that don't depend on Python after a Python update.
       - uses: actions/cache@v6.1.0
         with:
           path: ~/.cache/pre-commit
-          key: ${{ steps.cache-key.outputs.prefix }}-${{ hashFiles('.pre-commit-config.yaml') }}
+          key: ${{ steps.cache-key.outputs.prefix }}-${{ hashFiles('.pre-commit-config.yaml', 'uv.lock') }}
           restore-keys: |
             ${{ steps.cache-key.outputs.prefix }}-
             ${{ steps.cache-key.outputs.base }}-
@@ -60,7 +61,8 @@ jobs:
           set +e -o pipefail
           uv run --locked pre-commit run \
             --all-files \
-            --hook-stage manual | tee "$RUNNER_TEMP/pre-commit.log"
+            --hook-stage manual \
+            | tee "$RUNNER_TEMP/pre-commit.log"
           status=$?
           git diff | tee "$RUNNER_TEMP/changes.diff"
           exit "$status"
