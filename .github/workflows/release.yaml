@@ -39,7 +39,7 @@ jobs:
               echo "notes-file=$notes_file"
             } >> "$GITHUB_OUTPUT"
           else
-            echo "No release: no commit since the last tag calls for one." >> "$GITHUB_STEP_SUMMARY"
+            echo "No release: nothing since the last tag calls for a new version." >> "$GITHUB_STEP_SUMMARY"
           fi
 
       - name: Create release

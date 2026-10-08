@@ -61,7 +61,8 @@ jobs:
           set +e -o pipefail
           uv run --locked pre-commit run \
             --all-files \
-            --hook-stage manual | tee "$RUNNER_TEMP/pre-commit.log"
+            --hook-stage manual \
+            | tee "$RUNNER_TEMP/pre-commit.log"
           status=$?
           git diff | tee "$RUNNER_TEMP/changes.diff"
           exit "$status"

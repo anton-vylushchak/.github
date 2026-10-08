@@ -43,7 +43,8 @@ jobs:
           printf '%s\n' "$TITLE" > "$RUNNER_TEMP/pr-title"
           uv run --locked pre-commit run conventional-pre-commit \
             --hook-stage commit-msg \
-            --commit-msg-filename "$RUNNER_TEMP/pr-title" | tee "$RUNNER_TEMP/pre-commit.log"
+            --commit-msg-filename "$RUNNER_TEMP/pr-title" \
+            | tee "$RUNNER_TEMP/pre-commit.log"
 
       - name: Write failure summary
         if: failure() && steps.pre-commit.outcome == 'failure'
