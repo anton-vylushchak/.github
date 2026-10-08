@@ -5,8 +5,11 @@ Every change lands through a pull request.
 ## Setup
 
 ```bash
-make setup
+brew bundle
+just setup
 ```
+
+Run `just` to list the other recipes.
 
 ## Making a change
 
@@ -36,5 +39,5 @@ A hook update leaves the old hook environment in the cache. The gitleaks and act
 each, mostly the Go toolchain that builds them. Remove the leftovers with:
 
 ```bash
-make prune
+just prune
 ```
