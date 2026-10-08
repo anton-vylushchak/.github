@@ -1,6 +1,7 @@
 {
   "recommendations": [
     "github.vscode-github-actions",
+    "nefrob.vscode-just-syntax",
     "redhat.vscode-yaml",
     "tamasfe.even-better-toml"
   ]
