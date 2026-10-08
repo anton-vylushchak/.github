@@ -8,7 +8,7 @@ agent instructions.
 Create a new repository from this one with **Use this template**, then:
 
 1. Set `name` in [pyproject.toml](pyproject.toml) and run `uv lock`.
-2. Run `make setup` to install the tools and the git hooks.
+2. Run `brew bundle` to install the tools, then `just setup` to install the git hooks.
 3. Switch to the shared workflows: replace `lint.yaml` and `pr-title.yaml` in `.github/workflows/` with their callers
    from [workflow-templates/](workflow-templates/), then delete `workflow-templates/` and its entry in
    [dependabot.yaml](.github/dependabot.yaml).
@@ -36,7 +36,7 @@ listed in its section. With pre-commit-uv in `uv.lock`, the Python hooks install
 
 ### Lint
 
-[lint.yaml](.github/workflows/lint.yaml) runs the same pre-commit checks as `make lint` on pull requests and on pushes
+[lint.yaml](.github/workflows/lint.yaml) runs the same pre-commit checks as `just lint` on pull requests and on pushes
 to `main`. It needs:
 
 - `uv.lock` with pre-commit
