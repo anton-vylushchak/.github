@@ -82,4 +82,7 @@ jobs:
           } >> "$GITHUB_STEP_SUMMARY"
 
       - name: Prune pre-commit cache
-        run: uv run --locked pre-commit gc
+        run: |
+          uv run --locked pre-commit gc
+          # Each Go hook runs its built binary, so drop the 270 MB Go toolchain pre-commit keeps next to it.
+          rm -rf ~/.cache/pre-commit/*/golangenv-*/.go
