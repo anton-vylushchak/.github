@@ -33,27 +33,16 @@ jobs:
 
       - uses: astral-sh/setup-uv@v10.2.0
         with:
+          version-file: uv.lock
           cache-python: true
 
-      # pre-commit builds Python hooks with the project's Python, so a new patch version needs a new cache.
-      - name: Get cache key
-        id: cache-key
-        run: |
-          uv sync --locked
-          python_version=$(uv python find --show-version)
-          base="pre-commit-$RUNNER_OS-$RUNNER_ARCH"
-          echo "base=$base" >> "$GITHUB_OUTPUT"
-          echo "prefix=$base-py$python_version" >> "$GITHUB_OUTPUT"
-
-      # The key includes uv.lock, which pins the tools that build the hooks, since an exact match isn't saved again.
-      # The second restore key reuses the hooks that don't depend on Python after a Python update.
+      # uv.lock pins the tools that build the hooks and, through uv, the Python version.
+      # The key includes it because a cache restored by an exact match isn't saved again.
       - uses: actions/cache@v6.1.0
         with:
           path: ~/.cache/pre-commit
-          key: ${{ steps.cache-key.outputs.prefix }}-${{ hashFiles('.pre-commit-config.yaml', 'uv.lock') }}
-          restore-keys: |
-            ${{ steps.cache-key.outputs.prefix }}-
-            ${{ steps.cache-key.outputs.base }}-
+          key: pre-commit-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('.pre-commit-config.yaml', 'uv.lock') }}
+          restore-keys: pre-commit-${{ runner.os }}-${{ runner.arch }}-
 
       - name: Run pre-commit
         id: pre-commit
