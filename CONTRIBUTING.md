@@ -35,8 +35,8 @@ outside `include_paths` in [.cliff.toml](.cliff.toml).
 
 ## Freeing disk space
 
-A hook update leaves the old hook environment in the cache. The gitleaks and actionlint environments take about 300 MB
-each, mostly the Go toolchain that builds them. Remove the leftovers with:
+A hook update leaves the old hook environment in the cache, and each Go hook keeps the 270 MB Go toolchain that built
+it. Remove both with:
 
 ```bash
 just prune

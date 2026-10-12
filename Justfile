@@ -16,6 +16,7 @@ lint hook="":
         --hook-stage manual \
         --show-diff-on-failure
 
-# Remove hook environments that are no longer used.
+# Remove unused hook environments and Go toolchains.
 prune:
     uv run --locked pre-commit gc
+    rm -rf ~/.cache/pre-commit/*/golangenv-*/.go
