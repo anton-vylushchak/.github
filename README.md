@@ -27,8 +27,9 @@ Other repositories call these workflows by version. Copy the caller from [workfl
 which Dependabot keeps on the latest release. Each workflow lists its inputs and their defaults under `workflow_call`;
 set them with `with:` on the job that calls it.
 
-Each workflow checks out the calling repository and runs that repository's own tools, so the repository needs the files
-listed in its section. With pre-commit-uv in `uv.lock`, the Python hooks install faster.
+Each workflow checks out the calling repository and runs that repository's own tools at the versions in its `uv.lock`,
+uv included, so the repository needs the files listed in its section. Adding pre-commit-uv as a dev dependency makes the
+Python hooks install faster.
 
 > [!CAUTION]
 > Leave `concurrency` out of calling workflows. Each workflow sets its own, and a matching group in the caller cancels
@@ -39,7 +40,7 @@ listed in its section. With pre-commit-uv in `uv.lock`, the Python hooks install
 [lint.yaml](.github/workflows/lint.yaml) runs the same pre-commit checks as `just lint` on pull requests and on pushes
 to `main`. It needs:
 
-- `uv.lock` with pre-commit
+- `pyproject.toml` with uv and pre-commit as dev dependencies, and `uv.lock`
 - `.pre-commit-config.yaml`
 
 ### PR Title
@@ -48,5 +49,5 @@ to `main`. It needs:
 squash merges turn the title into the commit on `main`. Its caller also listens for `edited`, so the check runs again
 when the title changes. It needs:
 
-- `uv.lock` with pre-commit
+- `pyproject.toml` with uv and pre-commit as dev dependencies, and `uv.lock`
 - `.pre-commit-config.yaml` with the `conventional-pre-commit` hook
