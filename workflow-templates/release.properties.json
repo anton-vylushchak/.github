@@ -1,0 +1,5 @@
+{
+  "name": "Release",
+  "description": "Publish a release with git-cliff notes when a merge to main calls for one.",
+  "filePatterns": ["^\\.cliff\\.toml$"]
+}

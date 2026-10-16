@@ -3,6 +3,16 @@ name: Release
 on:
   push:
     branches: [main]
+  workflow_call:
+    inputs:
+      runs-on:
+        description: Runner label (default ubuntu-slim).
+        type: string
+        required: false
+      timeout-minutes:
+        description: Job timeout in minutes (default 3). ubuntu-slim stops jobs at 15.
+        type: number
+        required: false
 
 permissions:
   contents: write
@@ -13,8 +23,8 @@ concurrency:
 
 jobs:
   release:
-    runs-on: ubuntu-slim
-    timeout-minutes: 3
+    runs-on: ${{ inputs.runs-on || 'ubuntu-slim' }}
+    timeout-minutes: ${{ inputs.timeout-minutes || 3 }}
     steps:
       - uses: actions/checkout@v7.0.1
         with:
