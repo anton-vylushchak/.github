@@ -8,7 +8,7 @@ agent instructions.
 Create a new repository from this one with **Use this template**, then:
 
 1. Set `name` in [pyproject.toml](pyproject.toml) and run `uv lock`.
-2. Run `brew bundle` to install the tools, then `just setup` to install the git hooks.
+2. Run `brew bundle` to install the tools, then `just setup` to install the git hooks and gh extensions.
 3. Switch to the shared workflows: replace `lint.yaml`, `pr-title.yaml` and `release.yaml` in `.github/workflows/` with
    their callers from [workflow-templates/](workflow-templates/), then delete `workflow-templates/` and its entry in
    [dependabot.yaml](.github/dependabot.yaml).

@@ -5,9 +5,10 @@
 default:
     @just --list --unsorted
 
-# Install the git hooks.
+# Install the git hooks and gh extensions.
 setup:
     uv run --locked pre-commit install
+    gh extension install github/gh-stack
 
 # Run the checks as CI does, or only the given hook.
 lint hook="":
