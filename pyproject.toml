@@ -7,9 +7,9 @@ dependencies = []
 [dependency-groups]
 dev = [
     "git-cliff==2.14.2",
-    "pre-commit==4.6.2",
-    "pre-commit-uv==4.3.0",
-    "uv==0.12.23",
+    "pre-commit==4.7.0",
+    "pre-commit-uv==4.4.0",
+    "uv==0.13.0",
 ]
 
 [tool.uv]
