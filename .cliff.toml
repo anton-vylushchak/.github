@@ -16,7 +16,6 @@ filter_unconventional = true
 protect_breaking_commits = true
 tag_pattern = "^v[0-9]+\\.[0-9]+\\.[0-9]+$"
 include_paths = [".github/workflows/"]
-exclude_paths = [".github/workflows/release.yaml"]
 commit_parsers = [
   { field = "breaking", pattern = "true", group = "<!-- 0 -->Breaking changes" },
   { message = "^feat", group = "<!-- 1 -->Features" },
