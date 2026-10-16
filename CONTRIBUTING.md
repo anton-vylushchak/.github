@@ -9,7 +9,8 @@ brew bundle
 just setup
 ```
 
-Run `just` to list the other recipes.
+This installs the tools in the [Brewfile](Brewfile), then the git hooks and gh extensions. Run `just` to list the other
+recipes.
 
 ## Making a change
 
