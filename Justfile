@@ -5,7 +5,7 @@
 default:
     @just --list --unsorted
 
-# Install the git hooks and gh extensions.
+# Set up a fresh clone.
 setup:
     uv run --locked pre-commit install
     gh extension install github/gh-stack
@@ -17,7 +17,8 @@ lint hook="":
         --hook-stage manual \
         --show-diff-on-failure
 
-# Remove unused hook environments and Go toolchains.
+# Free the disk space the caches no longer need.
 prune:
     uv run --locked pre-commit gc
     rm -rf ~/.cache/pre-commit/*/golangenv-*/.go
+    uv cache prune
