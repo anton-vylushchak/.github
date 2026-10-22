@@ -36,8 +36,7 @@ major version, `feat` a minor, and the other types a patch.
 
 ## Freeing disk space
 
-A hook update leaves the old hook environment in the cache, and each Go hook keeps the 270 MB Go toolchain that built
-it. Remove both with:
+Tool updates leave files behind that the caches no longer need. Remove them with:
 
 ```bash
 just prune
