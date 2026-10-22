@@ -5,7 +5,7 @@
 default:
     @just --list --unsorted
 
-# Install the git hooks and gh extensions.
+# Set up a fresh clone.
 setup:
     uv run --locked pre-commit install
     gh extension install github/gh-stack
