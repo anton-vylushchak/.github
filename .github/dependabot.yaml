@@ -27,9 +27,10 @@ updates:
       prefix: ci
       include: scope
     groups:
+      # Majors too: with update-types, Dependabot opens a pull request per hook.
+      # https://github.com/dependabot/dependabot-core/issues/15266
       hooks:
         patterns: ["*"]
-        update-types: ["minor", "patch"]
 
   - package-ecosystem: uv
     directory: /
