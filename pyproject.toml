@@ -9,7 +9,7 @@ dev = [
     "git-cliff==2.14.2",
     "pre-commit==4.7.0",
     "pre-commit-uv==4.4.0",
-    "uv==0.13.0",
+    "uv==0.13.5",
 ]
 
 [tool.uv]
