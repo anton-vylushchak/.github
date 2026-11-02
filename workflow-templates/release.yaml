@@ -9,4 +9,4 @@ permissions:
 
 jobs:
   release:
-    uses: anton-vylushchak/.github/.github/workflows/release.yaml@v2.1.1
+    uses: anton-vylushchak/.github/.github/workflows/release.yaml@v2.1.2
