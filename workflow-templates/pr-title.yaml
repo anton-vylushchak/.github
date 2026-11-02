@@ -9,4 +9,4 @@ permissions:
 
 jobs:
   pr-title:
-    uses: anton-vylushchak/.github/.github/workflows/pr-title.yaml@v2.1.1
+    uses: anton-vylushchak/.github/.github/workflows/pr-title.yaml@v2.1.2
