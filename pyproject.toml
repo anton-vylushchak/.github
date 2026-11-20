@@ -8,8 +8,8 @@ dependencies = []
 dev = [
     "git-cliff==2.14.2",
     "pre-commit==4.7.0",
-    "pre-commit-uv==4.4.1",
-    "uv==0.13.7",
+    "pre-commit-uv==4.4.2",
+    "uv==0.13.9",
 ]
 
 [tool.uv]
